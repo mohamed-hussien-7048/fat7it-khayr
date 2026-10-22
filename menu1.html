@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قهوة فتحة خير - ركن المشروبات</title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #ffcc00;
+            --bright-gold: #ffd000;
+            --brand-brown: #3d2516;
+            --light-brown: #5c3a21;
+            --deep-black: #1a110b;
+            --card-bg: #2b1a10;
+            --led-glow-gold: rgba(198, 147, 75, 0.3);
+            --led-red: #ff3131;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--deep-black);
+            color: #f5f0eb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--deep-black);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .pulse-logo {
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0%, 100% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .loader-hidden { opacity: 0; visibility: hidden; }
+
+        body::before, body::after {
+            content: ''; position: fixed; left: 0; width: 100%; height: 4px; z-index: 100;
+            animation: ledPulse 3s infinite alternate;
+        }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+
+        @keyframes ledPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .animated-bg {
+            position: fixed; top: 0; left: -10%; width: 120%; height: 100%;
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover; background-position: center;
+            z-index: -1; animation: panoramicMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-5%); }
+            100% { transform: translateX(5%); }
+        }
+
+        .container {
+            width: 90%; max-width: 900px; margin: 40px auto; z-index: 1;
+            padding: 30px; background: rgba(35, 22, 14, 0.75);
+            border-radius: 24px; backdrop-filter: blur(15px);
+            border: 1px solid rgba(198, 147, 75, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        header h1 {
+            text-align: center; font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7); margin-bottom: 30px;
+        }
+
+        .category-section { margin-bottom: 50px; }
+
+        .category-header {
+            text-align: center; margin-bottom: 25px;
+        }
+
+        .category-badge {
+            display: inline-block; padding: 10px 30px; border-radius: 50px;
+            border: 1px solid rgba(198, 147, 75, 0.4); background: rgba(61, 37, 22, 0.6);
+            color: #fff; font-weight: bold; font-size: 1.25rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .menu-card {
+            background: var(--card-bg); border-radius: 16px;
+            border: 1px solid rgba(198, 147, 75, 0.15); overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        .menu-image { width: 100%; height: 200px; overflow: hidden; position: relative; }
+        .menu-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; transition: transform 0.5s; }
+        .menu-card:hover .menu-image img { transform: scale(1.04); }
+
+        .menu-image::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+            background: linear-gradient(to top, var(--card-bg), transparent);
+        }
+
+        .price-list { padding: 10px 25px; }
+        .price-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 0; border-bottom: 1px solid rgba(198, 147, 75, 0.15);
+            transition: background 0.3s;
+        }
+        .price-item:last-child { border-bottom: none; }
+        .price-item:hover { background: rgba(255, 255, 255, 0.01); }
+
+        .item-name { font-size: 1.15rem; color: #e8ded1; font-weight: bold; }
+        .item-price {
+            color: var(--deep-black); font-weight: 900;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold)); 
+            padding: 5px 16px; border-radius: 6px; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .loader-msg { text-align: center; padding: 25px; color: var(--primary-gold); font-size: 1rem; font-weight: bold; }
+
+        .actions { text-align: center; margin: 40px 0; }
+        .btn-back {
+            text-decoration: none; color: var(--primary-gold); font-weight: bold;
+            padding: 12px 40px; border: 2px solid var(--primary-gold);
+            border-radius: 6px; transition: 0.3s all ease;
+            background: transparent; display: inline-block;
+        }
+        .btn-back:hover { 
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold)); 
+            color: var(--deep-black); 
+            box-shadow: 0 4px 15px var(--led-glow-gold);
+            transform: translateY(-2px);
+        }
+
+        footer { text-align: center; padding: 20px; color: var(--primary-gold); font-size: 0.85rem; opacity: 0.6; letter-spacing: 0.5px; }
+
+        @media (max-width: 600px) { 
+            .container { width: 95%; padding: 15px; } 
+            .price-list { padding: 10px 15px; }
+            .item-name { font-size: 1rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+    </div>
+
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>#قهوة_فتحة_خير</h1>
+        </header>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-badge">🍸 ركن الساقع</div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image">
+                    <img src="./photo/imges/111.jpg" alt="Cold Drinks">
+                </div>
+                <div id="loader-gas" class="loader-msg">⏳ فناجين الخير على النار... دقيقة وتكون عندك</div>
+                <div id="list-gas" class="price-list"></div>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-badge">🍹 ركن الساقع والنعنعة الفريش</div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image">
+                    <img src="./photo/imges/222.jpg" alt="Fresh Juice">
+                </div>
+                <div id="loader-fresh" class="loader-msg">⏳ بنعصر الفواكه الفريش... حاجة تروق دمك</div>
+                <div id="list-fresh" class="price-list"></div>
+            </div>
+        </section>
+
+        <section class="category-section">
+            <div class="category-header">
+                <div class="category-badge">✨ مشروبات اسبيشيل من وش السعد</div>
+            </div>
+            <div class="menu-card">
+                <div class="menu-image">
+                    <img src="./photo/imges/333.jpg" alt="Special Drinks">
+                </div>
+                <div id="loader-special" class="loader-msg">⏳ نجهز لك خلطتنا الخاصة وسر الصنعة...</div>
+                <div id="list-special" class="price-list"></div>
+            </div>
+        </section>
+
+        <div class="actions">
+            <a href="index.html" class="btn-back">🔙 العودة للرئيسية</a>
+        </div>
+    </div>
+
+    <footer>
+        ® Copyright © 2026 Techno Science
+    </footer>
+
+    <script>
+        const SHEET_URLS = {
+            gas: 'https://docs.google.com/spreadsheets/d/1u0sezgoO17TmoSt-mTN_XVLx2i4DN0KS11LNkj-f2Wk/export?format=csv',
+            fresh: 'https://docs.google.com/spreadsheets/d/1tWoDuJthRzU3cOsgmw8_NS7EOHsEVrXz6bciUeLKw3w/export?format=csv',
+            special: 'https://docs.google.com/spreadsheets/d/1t4uU_okoLlizNUcwNUlMmpmq1jMipxSmeuC06hmxyN4/export?format=csv'
+        };
+
+        class MenuService {
+            static async fetchCsvData(url) {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('فشل جلب البيانات');
+                return await response.text();
+            }
+
+            static parseCsvRows(csvText) {
+                return csvText.split('\n').slice(1);
+            }
+
+            static parseColumns(row) {
+                return row.split(',').map(col => col.replace(/^"|"$/g, '').trim());
+            }
+        }
+
+        class MenuRenderer {
+            static renderItems(rows, emoji) {
+                let html = '';
+                rows.forEach(row => {
+                    const columns = MenuService.parseColumns(row);
+                    if (columns.length >= 2 && columns[0] !== "") {
+                        html += `
+                            <div class="price-item">
+                                <span class="item-name">${emoji} ${columns[0]}</span>
+                                <span class="item-price">${columns[1]} ج.م</span>
+                            </div>`;
+                    }
+                });
+                return html;
+            }
+
+            static showError(loaderElement, message) {
+                loaderElement.innerHTML = message;
+                loaderElement.style.color = "var(--led-red)";
+            }
+        }
+
+        async function loadMenuSection(type, elementId, loaderId, emoji) {
+            const listContainer = document.getElementById(elementId);
+            const loaderMsg = document.getElementById(loaderId);
+            
+            try {
+                const csvText = await MenuService.fetchCsvData(SHEET_URLS[type]);
+                const rows = MenuService.parseCsvRows(csvText);
+                listContainer.innerHTML = MenuRenderer.renderItems(rows, emoji);
+                loaderMsg.style.display = 'none';
+            } catch (error) {
+                MenuRenderer.showError(loaderMsg, "⚠️ فشل تحميل هذا القسم حالياً");
+            }
+        }
+
+        class AppInitializer {
+            static init() {
+                window.addEventListener("load", () => {
+                    setTimeout(() => {
+                        document.getElementById("loader").classList.add("loader-hidden");
+                    }, 1000);
+
+                    loadMenuSection('gas', 'list-gas', 'loader-gas', '🍺');
+                    loadMenuSection('fresh', 'list-fresh', 'loader-fresh', '🍹');
+                    loadMenuSection('special', 'list-special', 'loader-special', '✨');
+                });
+            }
+        }
+
+        AppInitializer.init();
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قهوة فتحة خير - تواصل معنا</title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gold: #ffcc00;
+            --bright-gold: #ffd000;
+            --brand-brown: #3d2516;
+            --light-brown: #5c3a21;
+            --deep-black: #1a110b;
+            --card-bg: rgba(43, 26, 16, 0.8);
+            --dark-card: rgba(26, 17, 11, 0.85);
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .pulse-logo {
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        .social-item.phone {
+            cursor: pointer;
+            position: relative;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--deep-black);
+            color: #f5f0eb;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 40px 6px;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 2px;
+            z-index: 100;
+        }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 10px rgba(255, 204, 0, 0.3); }
+
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%;
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 20s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-3%); }
+            100% { transform: translateX(3%); }
+        }
+
+        .container {
+            width: 92%;
+            max-width: 800px;
+            z-index: 1;
+            background: var(--dark-card);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+        }
+
+        header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2.3rem, 7vw, 3.8rem);
+            color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #dcd1c4;
+            margin-bottom: 40px;
+            background: rgba(255,255,255,0.03);
+            display: inline-block;
+            padding: 6px 24px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            font-size: 0.95rem;
+        }
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .social-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            color: #f5f0eb;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .social-item i { font-size: 2.5rem; color: var(--primary-gold); transition: 0.3s; }
+        .social-item span { font-weight: bold; font-size: 1.15rem; color: #f5f0eb; }
+        .social-item .phone-number { color: var(--primary-gold); font-family: sans-serif; font-size: 1.1rem; }
+        .social-item small { color: #bfae9c; font-size: 0.85rem; }
+
+        .social-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary-gold);
+            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.1);
+        }
+
+        .social-item.whatsapp:hover i { color: #25d366; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.4)); }
+        .social-item.instagram:hover i { color: #ff0050; filter: drop-shadow(0 0 8px rgba(255, 0, 80, 0.4)); }
+
+        .back-nav { margin-top: 40px; }
+        .btn-back {
+            display: inline-block;
+            padding: 12px 45px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #1a110b;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .btn-back:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 204, 0, 0.2);
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #bfae9c;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            .social-grid { grid-template-columns: 1fr; gap: 15px; }
+            .container { width: 95%; padding: 30px 15px; border-radius: 12px; }
+            .btn-back { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+    </div>
+
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>تواصل معنا</h1>
+            <p class="subtitle">نحن هنا لخدمتك.. في أي وقت</p>
+        </header>
+
+        <div class="social-grid">
+            <a href="javascript:void(0)" class="social-item phone" id="copyPhone" onclick="ClipboardService.copyNumber('01206428193')">
+                <i class="fas fa-headset"></i>
+                <span>رقم الإدارة</span>
+                <span class="phone-number">01206428193</span>
+                <span id="copyMessage" style="display:none; font-size: 13px; color: var(--primary-gold); position: absolute; top: -22px; font-weight: bold; background: rgba(26,17,11,0.9); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--primary-gold);">تم النسخ الفوري!</span>
+            </a>
+
+            <a href="https://wa.me/+201206428193?text=مرحباً، أود التواصل مع إدارة قهوة فتحة خير" class="social-item whatsapp">
+                <i class="fab fa-whatsapp"></i>
+                <span>واتساب الإدارة</span>
+                <small>للاستفسارات والطلبات</small>
+            </a>
+        </div>
+
+        <div class="back-nav">
+            <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a>
+            <br>
+            <footer>
+                ® Copyright © 2026 Techno Science 
+            </footer>
+        </div>
+    </div>
+
+<script>
+    class ClipboardService {
+        static copyNumber(number) {
+            const tempInput = document.createElement("input");
+            tempInput.value = number;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            const msg = document.getElementById("copyMessage");
+            msg.style.display = "block";
+            
+            setTimeout(() => {
+                msg.style.display = "none";
+            }, 2000);
+        }
+    }
+
+    class LoaderManager {
+        static init(delayMs = 1000) {
+            window.addEventListener("load", () => {
+                const loader = document.getElementById("loader");
+                if (loader) {
+                    setTimeout(() => {
+                        loader.classList.add("loader-hidden");
+                    }, delayMs);
+                }
+            });
+        }
+    }
+
+    LoaderManager.init();
+</script>
+
+</body>
+</html>

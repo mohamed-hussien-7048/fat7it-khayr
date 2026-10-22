@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>قهوة فتحة خير - جلسات الخير والدخان</title>
+    <link rel="icon" href="./photo/logo1.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Aref+Ruqaa:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #ffcc00;
+            --bright-gold: #ffd000;
+            --brand-brown: #3d2516;
+            --deep-black: #1a110b;
+            --card-bg: #2b1a10;
+            --led-glow-gold: rgba(198, 147, 75, 0.3);
+            --led-red: #ff3131;
+            --smoke-gray: #a6968a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: var(--deep-black);
+            color: #f5f0eb;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--deep-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        .pulse-logo {
+            width: 200px;
+            filter: drop-shadow(0 0 15px var(--primary-gold));
+            animation: pulseAnimation 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseAnimation {
+            0% { transform: scale(0.8); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.7; }
+        }
+
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        body::before, body::after {
+            content: '';
+            position: fixed;
+            left: 0; width: 100%; height: 4px;
+            z-index: 100;
+            animation: ledPulse 3s infinite alternate;
+        }
+        body::before { top: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+        body::after { bottom: 0; background: var(--primary-gold); box-shadow: 0 0 15px var(--primary-gold); }
+
+        @keyframes ledPulse {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0; left: -10%;
+            width: 120%; height: 100%;
+            background: linear-gradient(rgba(26, 17, 11, 0.85), rgba(26, 17, 11, 0.95)), 
+                        url('./photo/Gemini_Generated_Image_mffzo8mffzo8mffz.png');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: panoramicMove 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes panoramicMove {
+            0% { transform: translateX(-3%); }
+            100% { transform: translateX(3%); }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            z-index: 1;
+            padding: 30px;
+            background: rgba(35, 22, 14, 0.75);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(198, 147, 75, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            flex: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            color: var(--primary-gold);
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.7);
+            margin-bottom: 15px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(198, 147, 75, 0.4);
+            background: rgba(61, 37, 22, 0.6);
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .menu-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid rgba(198, 147, 75, 0.15);
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        .menu-image {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+            transition: transform 0.5s;
+        }
+        .menu-card:hover .menu-image img {
+            transform: scale(1.04);
+        }
+
+        .menu-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 50%;
+            background: linear-gradient(transparent, var(--card-bg));
+        }
+
+        .price-list {
+            padding: 10px 25px;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 12px;
+            border-bottom: 1px solid rgba(198, 147, 75, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item:hover {
+            background: rgba(255, 255, 255, 0.01);
+            padding-right: 18px;
+        }
+
+        .item-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #e8ded1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .item-price {
+            color: var(--deep-black);
+            font-weight: 900;
+            font-size: 1.15rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            padding: 5px 16px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .loader {
+            text-align: center;
+            padding: 60px;
+            color: var(--primary-gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: var(--primary-gold);
+            padding: 12px 40px;
+            border: 2px solid var(--primary-gold);
+            border-radius: 6px;
+            background: transparent;
+            transition: 0.3s all ease;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .btn-back:hover {
+            background: linear-gradient(135deg, var(--primary-gold), var(--bright-gold));
+            color: var(--deep-black);
+            box-shadow: 0 4px 15px var(--led-glow-gold);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--primary-gold);
+            font-size: 0.85rem;
+            opacity: 0.6;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 600px) {
+            .container { width: 95%; padding: 20px 15px; }
+            .item-name { font-size: 1rem; }
+            .menu-image { height: 180px; }
+            .price-list { padding: 10px 15px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader">
+        <img src="./photo/logo.png" alt="Loading..." class="pulse-logo">
+    </div>
+    
+    <div class="animated-bg"></div>
+
+    <div class="container">
+        <header>
+            <h1>#قهوة_فتحة_خير</h1>
+            <div class="category-badge">💨 جلسات الدخان والأجواء الرايقة</div>
+        </header>
+
+        <div id="main-loader" class="loader">
+            ⏳ جاري تجهيز حجر الخير وضبط الأجواء...
+        </div>
+
+        <div id="section-menu" class="menu-card" style="display: none;">
+            <div class="menu-image">
+                <img src="./photo/imges/shisha.webp" alt="جلسات وأجواء قهوة فتحة خير">
+            </div>
+            <div id="list-items" class="price-list"></div>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn-back">🔙 العودة للقائمة الرئيسية</a>
+        </div>
+    </div>
+
+    <footer>
+        ® Copyright © 2026 Techno Science 
+    </footer>
+
+    <script>
+        const SMOKE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1Fymx8NiBF0eWm7LFEsGW8OQ314Csp3ZzM7WRzcfrBTU/export?format=csv';
+
+        class NetworkService {
+            static async fetchCsvText(url) {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('فشل في جلب البيانات');
+                return await response.text();
+            }
+        }
+
+        class CsvParser {
+            static parseRows(csvText) {
+                return csvText.split('\n').filter(row => row.trim().length > 0);
+            }
+
+            static parseColumns(row) {
+                return row.split(',').map(col => col.replace(/^"|"$/g, '').trim());
+            }
+        }
+
+        class SmokeMenuRenderer {
+            static renderHtml(rows) {
+                let html = '';
+                for (let i = 1; i < rows.length; i++) {
+                    const columns = CsvParser.parseColumns(rows[i]);
+                    if (columns.length >= 2) {
+                        const name = columns[0];
+                        const price = columns[1];
+                        if (name && price) {
+                            html += `
+                                <div class="price-item">
+                                    <span class="item-name">💨 ${name}</span>
+                                    <span class="item-price">${price} ج.م</span>
+                                </div>`;
+                        }
+                    }
+                }
+                return html;
+            }
+        }
+
+        class MenuController {
+            static async init() {
+                const loaderDiv = document.getElementById('main-loader');
+                const sectionContainer = document.getElementById('section-menu');
+                const listContainer = document.getElementById('list-items');
+
+                try {
+                    const csvText = await NetworkService.fetchCsvText(SMOKE_SHEET_URL);
+                    const rows = CsvParser.parseRows(csvText);
+
+                    listContainer.innerHTML = SmokeMenuRenderer.renderHtml(rows);
+                    sectionContainer.style.display = 'block';
+                    loaderDiv.style.display = 'none';
+                } catch (error) {
+                    loaderDiv.innerHTML = `<p style="color:var(--led-red);">⚠️ حدث خطأ أثناء تحميل القائمة، يرجى التحقق من اتصال الشبكة.</p>`;
+                }
+            }
+        }
+
+        class PageLifecycle {
+            static run() {
+                window.addEventListener("load", () => {
+                    const loader = document.getElementById("loader");
+                    setTimeout(() => {
+                        loader.classList.add("loader-hidden");
+                    }, 1000);
+                });
+
+                MenuController.init();
+            }
+        }
+
+        PageLifecycle.run();
+    </script>
+</body>
+</html>
